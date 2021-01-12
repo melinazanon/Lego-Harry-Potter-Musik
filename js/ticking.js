@@ -172,10 +172,12 @@ function snape() {
     isSnape= !isSnape;
     if(isSnape){
         console.log('snape start');
+        document.getElementById('snape').style.color = 'red';
         return 'snape stop';
     }
     else{
         console.log('snape stop');
+        document.getElementById('snape').style.color = '#e0d336';
         return 'snape';
     }
 }
@@ -184,10 +186,12 @@ function dumbledore() {
     isDumbledore= !isDumbledore;
     if(isDumbledore){
         console.log('dumbledore start');
+        document.getElementById('dumbledore').style.color = 'red';
         return 'dumbledore stop';
     }
     else{
         console.log('dumbledore stop');
+        document.getElementById('dumbledore').style.color = '#e0d336';
         return 'dumbledore';
     }
 }
@@ -196,10 +200,12 @@ function ron() {
     isRon= !isRon;
     if(isRon){
         console.log('ron start');
+        document.getElementById('ron').style.color = 'red';
         return 'ron stop';
     }
     else{
         console.log('ron stop');
+        document.getElementById('ron').style.color = '#e0d336';
         return 'ron';
     }
 }
@@ -208,10 +214,12 @@ function hermione() {
     isHermione= !isHermione;
     if(isHermione){
         console.log('hermione start');
+        document.getElementById('hermione').style.color = 'red';
         return 'hermione stop';
     }
     else{
         console.log('hermione stop');
+        document.getElementById('hermione').style.color = '#e0d336';
         return 'hermione';
     }
 }
@@ -220,10 +228,12 @@ function harry() {
     isHarry= !isHarry;
     if(isHarry){
         console.log('harry start');
+        document.getElementById('harry').style.color = 'red';
         return 'harry stop';
     }
     else{
         console.log('harry stop');
+        document.getElementById('harry').style.color = '#e0d336';
         return 'harry';
     }
 }
@@ -232,10 +242,12 @@ function voldemort() {
     isVoldemort= !isVoldemort;
     if(isVoldemort){
         console.log('voldy start');
+        document.getElementById('voldy').style.color = 'red';
         return 'voldy stop';
     }
     else{
         console.log('voldy stop');
+        document.getElementById('voldy').style.color = '#e0d336';
         return 'voldy';
     }
 }
