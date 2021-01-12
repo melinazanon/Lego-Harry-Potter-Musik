@@ -55,84 +55,66 @@ function changeAllTogether() {
     allTogether= false;
 }
 
+function playSound(bufferNumber, time) {
+    let source = audioContext.createBufferSource();
+        source.buffer = audioBuffers[bufferNumber];
+        source.connect(audioContext.destination);
+        source.start(time);    
+}
+
 function scheduleNote( beatNumber, time ) {
     // push the note on the queue, even if we're not playing.
     notesInQueue.push( { note: beatNumber, time: time } );
  
+    // Ticking    
     if(beatNumber% 2 === 0){
         console.log('tick');
-        let source = audioContext.createBufferSource();
-        source.buffer = audioBuffers[0];
-        source.connect(audioContext.destination);
-        source.start(time);
+        playSound(0, time);
     }
 
+    // All sing together
     if(isSnape && isHarry && isDumbledore && isRon && isHermione){
         allTogether = true;
         console.log('Hogwarts Song!');
     }
     
+    // Timing of individual sounds
     if(!allTogether){
         if(beatNumber%16 === 0 && isSnape && !isHarry){
-            console.log('snape');
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[1];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(1, time);
         }
 
         if(beatNumber%16 === 1 && isSnape && isHarry && !isDumbledore && !isHermione && !isRon && !isVoldemort){
             console.log('snape harry');
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[8];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(8, time);
         }
     
         if((beatNumber%16 === 6 || beatNumber%16 === 14) && isDumbledore){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[2];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(2, time);
         }
     
         if((beatNumber%16 === 2) && isRon){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[3];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(3, time);
         }
     
         if(beatNumber%8 === 1  && isHermione){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[4];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(4, time);
         }
     
         if((beatNumber%16 === 0 || beatNumber%16 === 7) && isHarry && !isSnape){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[5];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(5, time);
         }
     }
     else{
         if(beatNumber%32=== 0){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[7];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(7, time);
             window.setTimeout(changeAllTogether, 6000);
         }
 
     }
 
     if(beatNumber%16 === 1  && isVoldemort){
-        let source = audioContext.createBufferSource();
-        source.buffer = audioBuffers[6];
-        source.connect(audioContext.destination);
-        source.start(time);   
+        playSound(6, time);  
     }
 }
 
