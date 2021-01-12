@@ -7,7 +7,7 @@ let isDumbledore = false;
 let isRon = false;
 let isHermione = false;
 let isVoldemort = false;
-let allTogether = false;     // Are we currently playing?
+let allTogether = false;     
 var startTime;              // The start time of the entire sequence.
 var current8thNote;        // What note is currently last scheduled?
 var tempo = 118.0;          // tempo (in beats per minute)
@@ -39,12 +39,13 @@ window.requestAnimFrame = (function(){
 })();
 
 function nextNote() {
-    // Advance current note and time by a 16th note...
+    // Advance current note and time
     var secondsPerBeat = 60.0 / tempo * 2;    // Notice this picks up the CURRENT 
                                           // tempo value to calculate beat length.
     nextNoteTime += 0.25 * secondsPerBeat;    // Add beat length to last beat time
 
     current8thNote++;    // Advance the beat number, wrap to zero
+    // 32 8th notes = 4 bars
     if (current8thNote == 32) {
         current8thNote = 0;
     }
@@ -72,10 +73,18 @@ function scheduleNote( beatNumber, time ) {
     }
     
     if(!allTogether){
-        if(beatNumber%16 === 0 && isSnape){
+        if(beatNumber%16 === 0 && isSnape && !isHarry){
             console.log('snape');
             let source = audioContext.createBufferSource();
             source.buffer = audioBuffers[1];
+            source.connect(audioContext.destination);
+            source.start(time);
+        }
+
+        if(beatNumber%16 === 1 && isSnape && isHarry && !isDumbledore && !isHermione && !isRon && !isVoldemort){
+            console.log('snape harry');
+            let source = audioContext.createBufferSource();
+            source.buffer = audioBuffers[8];
             source.connect(audioContext.destination);
             source.start(time);
         }
@@ -101,7 +110,7 @@ function scheduleNote( beatNumber, time ) {
             source.start(time);
         }
     
-        if((beatNumber%16 === 0 || beatNumber%16 === 7) && isHarry){
+        if((beatNumber%16 === 0 || beatNumber%16 === 7) && isHarry && !isSnape){
             let source = audioContext.createBufferSource();
             source.buffer = audioBuffers[5];
             source.connect(audioContext.destination);
@@ -268,6 +277,7 @@ function draw() {
     
 
 function getAudioData(i) {
+    //Get all the sound files
     let file;
 
     switch (i) {
@@ -295,6 +305,8 @@ function getAudioData(i) {
         case 7:
             file = "sounds/SingingThatSong_AllDayLong.mp3";
             break;
+        case 8:
+            file = "Aufnahmen/SnapeHarry.mp3";
         default:
             break;
     }
@@ -331,7 +343,7 @@ function init(){
     audioContext = new AudioContext();    
 
     //load audio files
-    for (let i = 0; i < 8; i++){
+    for (let i = 0; i < 9; i++){
         getAudioData(i);
     }
 
