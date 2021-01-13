@@ -7,7 +7,7 @@ let isDumbledore = false;
 let isRon = false;
 let isHermione = false;
 let isVoldemort = false;
-let allTogether = false;     // Are we currently playing?
+let allTogether = false;     
 var startTime;              // The start time of the entire sequence.
 var current8thNote;        // What note is currently last scheduled?
 var tempo = 118.0;          // tempo (in beats per minute)
@@ -26,6 +26,7 @@ var timerWorker = null;     // The Web Worker used to fire timer messages
 
 let audioBuffers = [];      // Array for the different samples
 
+
 // First, let's shim the requestAnimationFrame API, with a setTimeout fallback
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame ||
@@ -39,12 +40,13 @@ window.requestAnimFrame = (function(){
 })();
 
 function nextNote() {
-    // Advance current note and time by a 16th note...
+    // Advance current note and time
     var secondsPerBeat = 60.0 / tempo * 2;    // Notice this picks up the CURRENT 
                                           // tempo value to calculate beat length.
     nextNoteTime += 0.25 * secondsPerBeat;    // Add beat length to last beat time
 
     current8thNote++;    // Advance the beat number, wrap to zero
+    // 32 8th notes = 4 bars
     if (current8thNote == 32) {
         current8thNote = 0;
     }
@@ -54,76 +56,66 @@ function changeAllTogether() {
     allTogether= false;
 }
 
+function playSound(bufferNumber, time) {
+    let source = audioContext.createBufferSource();
+        source.buffer = audioBuffers[bufferNumber];
+        source.connect(audioContext.destination);
+        source.start(time);    
+}
+
 function scheduleNote( beatNumber, time ) {
     // push the note on the queue, even if we're not playing.
     notesInQueue.push( { note: beatNumber, time: time } );
  
+    // Ticking    
     if(beatNumber% 2 === 0){
         console.log('tick');
-        let source = audioContext.createBufferSource();
-        source.buffer = audioBuffers[0];
-        source.connect(audioContext.destination);
-        source.start(time);
+        playSound(0, time);
     }
 
+    // All sing together
     if(isSnape && isHarry && isDumbledore && isRon && isHermione){
         allTogether = true;
         console.log('Hogwarts Song!');
     }
     
+    // Timing of individual sounds
     if(!allTogether){
-        if(beatNumber%16 === 0 && isSnape){
-            console.log('snape');
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[1];
-            source.connect(audioContext.destination);
-            source.start(time);
+        if(beatNumber%16 === 0 && isSnape && !isHarry){
+            playSound(1, time);
+        }
+
+        if(beatNumber%16 === 1 && isSnape && isHarry && !isDumbledore && !isHermione && !isRon && !isVoldemort){
+            console.log('snape harry');
+            playSound(8, time);
         }
     
         if((beatNumber%16 === 6 || beatNumber%16 === 14) && isDumbledore){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[2];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(2, time);
         }
     
         if((beatNumber%16 === 2) && isRon){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[3];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(3, time);
         }
     
         if(beatNumber%8 === 1  && isHermione){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[4];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(4, time);
         }
     
-        if((beatNumber%16 === 0 || beatNumber%16 === 7) && isHarry){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[5];
-            source.connect(audioContext.destination);
-            source.start(time);
+        if((beatNumber%16 === 0 || beatNumber%16 === 7) && isHarry && !isSnape){
+            playSound(5, time);
         }
     }
     else{
         if(beatNumber%32=== 0){
-            let source = audioContext.createBufferSource();
-            source.buffer = audioBuffers[7];
-            source.connect(audioContext.destination);
-            source.start(time);
+            playSound(7, time);
             window.setTimeout(changeAllTogether, 6000);
         }
 
     }
 
     if(beatNumber%16 === 1  && isVoldemort){
-        let source = audioContext.createBufferSource();
-        source.buffer = audioBuffers[6];
-        source.connect(audioContext.destination);
-        source.start(time);   
+        playSound(6, time);  
     }
 }
 
@@ -163,10 +155,12 @@ function snape() {
     isSnape= !isSnape;
     if(isSnape){
         console.log('snape start');
+        document.getElementById('snape').style.color = 'red';
         return 'snape stop';
     }
     else{
         console.log('snape stop');
+        document.getElementById('snape').style.color = '#e0d336';
         return 'snape';
     }
 }
@@ -175,10 +169,12 @@ function dumbledore() {
     isDumbledore= !isDumbledore;
     if(isDumbledore){
         console.log('dumbledore start');
+        document.getElementById('dumbledore').style.color = 'red';
         return 'dumbledore stop';
     }
     else{
         console.log('dumbledore stop');
+        document.getElementById('dumbledore').style.color = '#e0d336';
         return 'dumbledore';
     }
 }
@@ -187,10 +183,12 @@ function ron() {
     isRon= !isRon;
     if(isRon){
         console.log('ron start');
+        document.getElementById('ron').style.color = 'red';
         return 'ron stop';
     }
     else{
         console.log('ron stop');
+        document.getElementById('ron').style.color = '#e0d336';
         return 'ron';
     }
 }
@@ -199,10 +197,12 @@ function hermione() {
     isHermione= !isHermione;
     if(isHermione){
         console.log('hermione start');
+        document.getElementById('hermione').style.color = 'red';
         return 'hermione stop';
     }
     else{
         console.log('hermione stop');
+        document.getElementById('hermione').style.color = '#e0d336';
         return 'hermione';
     }
 }
@@ -211,10 +211,12 @@ function harry() {
     isHarry= !isHarry;
     if(isHarry){
         console.log('harry start');
+        document.getElementById('harry').style.color = 'red';
         return 'harry stop';
     }
     else{
         console.log('harry stop');
+        document.getElementById('harry').style.color = '#e0d336';
         return 'harry';
     }
 }
@@ -223,10 +225,12 @@ function voldemort() {
     isVoldemort= !isVoldemort;
     if(isVoldemort){
         console.log('voldy start');
+        document.getElementById('voldy').style.color = 'red';
         return 'voldy stop';
     }
     else{
         console.log('voldy stop');
+        document.getElementById('voldy').style.color = '#e0d336';
         return 'voldy';
     }
 }
@@ -268,6 +272,7 @@ function draw() {
     
 
 function getAudioData(i) {
+    //Get all the sound files
     let file;
 
     switch (i) {
@@ -295,6 +300,8 @@ function getAudioData(i) {
         case 7:
             file = "sounds/SingingThatSong_AllDayLong.mp3";
             break;
+        case 8:
+            file = "Aufnahmen/SnapeHarry.mp3";
         default:
             break;
     }
@@ -331,7 +338,7 @@ function init(){
     audioContext = new AudioContext();    
 
     //load audio files
-    for (let i = 0; i < 8; i++){
+    for (let i = 0; i < 9; i++){
         getAudioData(i);
     }
 
@@ -340,7 +347,7 @@ function init(){
 
     requestAnimFrame(draw);    // start the drawing loop.
 
-    timerWorker = new Worker("js/metronomeworker.js");
+    timerWorker = new Worker("scripts/metronomeworker.js");
 
     timerWorker.onmessage = function(e) {
         if (e.data == "tick") {
