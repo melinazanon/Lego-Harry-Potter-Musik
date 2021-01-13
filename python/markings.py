@@ -5,20 +5,21 @@ import mido
 
 
 print("Midi output ports: ", mido.get_output_names())
-midiOutput = mido.open_output("LoopBe Internal MIDI 1")
+midiOutput = mido.open_output("LoopBe Internal MIDI 1")     # für Windows
+# midiOutput = mido.open_output("IAC-Treiber Bus 1")        # für Mac
 
 def sendControlChange(control, value):
     message = mido.Message('control_change', control=control, value=value)
     midiOutput.send(message)
 
-cap = cv2.VideoCapture('videos/Alle Figuren.mp4')
+cap = cv2.VideoCapture('../videos/Alle Figuren.mp4')
 #allFigures = np.array(["Voldy", "Ron", "Dumble", "Snape", "Harry", "Hermione"])
 allFigures = np.zeros((6), dtype=bool)
 print(allFigures)
 
 colorsArray = np.array([
 [[60,150,10],[80,255,255]],      #Voldy x
-[[17,144,128],[37,255,255]],     #Ron x
+[[20,144,128],[37,255,255]],     #Ron x
 [[90,80,128],[110,110,255]],    #Dumble x 
 [[131,100,0],[148,200,255]],    #Snape x 
 [[110,120,50],[130,255,125]],    #Harry x 
