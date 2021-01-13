@@ -26,6 +26,7 @@ var timerWorker = null;     // The Web Worker used to fire timer messages
 
 let audioBuffers = [];      // Array for the different samples
 
+
 // First, let's shim the requestAnimationFrame API, with a setTimeout fallback
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame ||
