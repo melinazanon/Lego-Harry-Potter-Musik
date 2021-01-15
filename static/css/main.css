@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500&display=swap');
+
+#play {
+	width: 150px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #a9594b;
+	margin: auto;
+	margin-top: 15px;
+	border-radius: 5px;
+	transition: all 0.4s;
+	font-size:28px;
+	color: #eacfac;
+	text-align: center;
+}
+#play:hover {
+	cursor: pointer;
+	transform: scale(1.05);
+}
+#play:active {
+	background-color: #504048;
+}
+#figureButtons {
+	margin: 0;	
+	width: 100vw;
+	height: 50px;
+	display: flex;
+	justify-content: space-evenly;
+}
+.figureButton {
+	height: 100%;
+	text-align: center;
+	display: flex;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	flex: 1 1 0px;
+	transition: all 0.5s;
+}
+#harry {
+	background-color: #1a2840;
+}
+#snape {
+	background-color: #56337f;
+}
+#ron {
+	background-color: #ba8900;
+}
+#dumbledore {
+	background-color: #7499bc;
+}
+#voldy {
+	background-color: #1d2c17;
+}
+#hermione {
+	background-color: #ba004e;
+}
+.inactive {
+	background-color: #504048 !important;
+	opacity: 0.4;
+}
+
+p {
+	margin: auto;
+	font-size:28px;
+	color: #eacfac;
+}
+h2 {
+	margin: auto;
+	font-size: 20px;
+	margin: 10px;
+	color: white;
+}
+#stream {
+	min-height: 56.25vw;
+	min-width: 100vw;
+	background-color: white;
+	margin: 0;	
+}
+
+
+
+#showTempo { 
+	display: inline-block;
+	width: 45px; 
+}
+
+#showSwing { 
+	display: inline-block;
+	width: 40px; 
+}
+
+body, html {
+	position: relative;
+	padding: 0; margin: 0;
+    text-align: center;
+    color: #292326;
+    background: #292326;
+    font-family: 'Fraunces', serif;
+}
+body {
+    overflow: auto;
+}
