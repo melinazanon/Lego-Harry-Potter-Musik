@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width user-scalable=no">
+    <title>The Mysterious Ticking Noise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">>
+    <!-- <link rel="stylesheet" href="../static/css/main.css"> -->
+    <script src="//cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
+    <script src="{{ url_for('static', filename='scripts/ticking.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/midi.js') }}"></script>
+
+    <!-- <script src="scripts/ticking.js"></script>
+    <script src="scripts/midi.js"></script> -->
+  </head>
+  <body>
+    <div id="play" onclick="this.innerText = play();">Play</div>
+    <h2>Tempo: 118 BPM</h2>
+    <h2>Resolution: 8th notes</h2>
+
+    <img id="stream" src="{{ url_for('video_feed') }}">
+
+    <div id="figureButtons">
+      <div class="figureButton inactive" id="voldy" ><p>Voldy</p></div>
+      <div class="figureButton inactive" id="ron" ><p>Ron</p></div>
+      <div class="figureButton inactive" id="dumbledore" ><p>Dumbledore</p></div>
+      <div class="figureButton inactive" id="snape" ><p>Snape</p></div>
+      <div class="figureButton inactive" id="harry" ><p>Harry</p></div>
+      <div class="figureButton inactive" id="hermione" ><p>Hermione</p></div>
+    </div>
+    
+   </body>
+</html>
