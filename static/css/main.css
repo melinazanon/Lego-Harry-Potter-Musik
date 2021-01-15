@@ -22,10 +22,12 @@
 }
 #figureButtons {
 	margin: 0;	
-	width: 100vw;
+	width: 100%;
 	height: 50px;
 	display: flex;
 	justify-content: space-evenly;
+	position: relative;
+	bottom: 0;
 }
 .figureButton {
 	height: 100%;
@@ -61,7 +63,7 @@
 
 p {
 	margin: auto;
-	font-size:28px;
+	font-size:24px;
 	color: #eacfac;
 }
 h2 {
@@ -71,13 +73,24 @@ h2 {
 	color: white;
 }
 #stream {
-	min-height: 56.25vw;
-	min-width: 100vw;
+	height: 100%;
+	width: 100%;
 	background-color: white;
 	margin: 0;	
 }
 
+#video-container {
+	height: 75vh;
+	width: 133.33vh;
+	margin: auto;
+	margin-top: 10px;
+}
 
+.container{
+	position: absolute;
+	top: 0;
+	pointer-events: none;
+}
 
 #showTempo { 
 	display: inline-block;

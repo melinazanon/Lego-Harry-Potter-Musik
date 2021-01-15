@@ -81,7 +81,7 @@ function scheduleNote( beatNumber, time ) {
     
     // Timing of individual sounds
     if(!allTogether){
-        if(beatNumber%16 === 0 && isSnape && !isHarry){
+        if(beatNumber%16 === 0 && isSnape && !(isHarry && !isDumbledore && !isHermione && !isRon && !isVoldemort)){
             playSound(1, time);
         }
 
@@ -90,7 +90,7 @@ function scheduleNote( beatNumber, time ) {
             playSound(8, time);
         }
     
-        if((beatNumber%16 === 6 || beatNumber%16 === 14) && isDumbledore){
+        if(beatNumber%16 === 14 && isDumbledore){
             playSound(2, time);
         }
     
@@ -102,7 +102,7 @@ function scheduleNote( beatNumber, time ) {
             playSound(4, time);
         }
     
-        if((beatNumber%16 === 0 || beatNumber%16 === 7) && isHarry && !isSnape){
+        if((beatNumber%16 === 0 || beatNumber%16 === 7) && isHarry && !(isSnape && !isDumbledore && !isHermione && !isRon && !isVoldemort)){
             playSound(5, time);
         }
     }
@@ -114,7 +114,7 @@ function scheduleNote( beatNumber, time ) {
 
     }
 
-    if(beatNumber%16 === 1  && isVoldemort){
+    if(beatNumber%32 === 1  && isVoldemort){
         playSound(6, time);  
     }
 }
@@ -259,8 +259,8 @@ function draw() {
         canvasContext.clearRect(0,0,canvas.width, canvas.height); 
         for (var i=0; i<32; i++) {
             canvasContext.fillStyle = ( currentNote == i ) ? 
-                ((currentNote%2 === 0)?"red":"white") : "white";
-            canvasContext.fillRect( x * (i+1), x, x/2, x/2 );
+                ((currentNote%2 === 0)?"#a9594b":" #504048 ") : " #504048 ";
+            canvasContext.fillRect( x * (i+1), 10, x/2, 15 );
         }
         last16thNoteDrawn = currentNote;
     }
