@@ -67,7 +67,7 @@ def gen_frames():
 
         # Display the resulting frame
         # cv2.imshow('frame',frame)
-        cv2.imshow('Maske',figureMask)
+        # cv2.imshow('Maske',figureMask)
     
         # send to web page
         ret, buffer = cv2.imencode('.jpg', frame)
@@ -75,7 +75,7 @@ def gen_frames():
         yield ( b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
-        if cv2.waitKey(20) & 0xFF == ord('q'):
+        if cv2.waitKey(5) & 0xFF == ord('q'):
             break
 
 @app.route('/')
